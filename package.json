@@ -1,10 +1,16 @@
 {
+  "homepage": "https://ronlevi1.github.io/ExamApp/",
   "dependencies": {
     "bootstrap": "^5.3.8"
   },
   "scripts": {
     "dev": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
-    "lint": "npm run lint --prefix client"
+    "lint": "npm run lint --prefix client",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d client/dist"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
