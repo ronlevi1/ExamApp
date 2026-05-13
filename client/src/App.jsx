@@ -1,15 +1,32 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TeacherDashboard from './TeacherDashboard';
 import StudentPortal from './StudentPortal';
+import Login from './Login';
 import './App.css';
 
 function App() {
   const [role, setRole] = useState('teacher'); // 'teacher' or 'student'
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleRole = () => {
     setRole(prevRole => (prevRole === 'teacher' ? 'student' : 'teacher'));
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-vh-100 bg-light d-flex align-items-center">
+        <div className="container">
+          <Login />
+          <div className="text-center mt-3">
+            <button className="btn btn-link" onClick={() => setIsLoggedIn(true)}>
+              Skip Login (Demo)
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-vh-100 bg-light">
