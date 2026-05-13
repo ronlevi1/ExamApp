@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
 import { getExamById } from './api/examService';
+import ExamQuestions from './ExamQuestions';
 
 const StudentPortal = () => {
   const [examId, setExamId] = useState('');
   const [exam, setExam] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [examStarted, setExamStarted] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ const StudentPortal = () => {
     setLoading(true);
     setError('');
     setExam(null);
+    setExamStarted(false);
 
     try {
       const data = await getExamById(examId);
@@ -29,6 +32,19 @@ const StudentPortal = () => {
       setLoading(false);
     }
   };
+
+  if (examStarted && exam) {
+    return (
+      <ExamQuestions 
+        exam={exam} 
+        onBack={() => {
+          setExamStarted(false);
+          setExam(null);
+          setExamId('');
+        }} 
+      />
+    );
+  }
 
   return (
     <div className="container mt-4">
@@ -46,7 +62,7 @@ const StudentPortal = () => {
           </div>
           <div className="col-auto">
             <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Searching...' : 'Start Exam'}
+              {loading ? 'Searching...' : 'Search Exam'}
             </button>
           </div>
         </form>
@@ -58,7 +74,12 @@ const StudentPortal = () => {
           <div className="card-body">
             <h3 className="card-title text-success">Ready to start: {exam.title}</h3>
             <p className="card-text">Total Questions: {exam.questions.length}</p>
-            <button className="btn btn-success">Begin Now</button>
+            <button 
+              className="btn btn-success" 
+              onClick={() => setExamStarted(true)}
+            >
+              Begin Now
+            </button>
           </div>
         </div>
       )}
