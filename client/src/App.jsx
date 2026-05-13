@@ -17,7 +17,7 @@ function App() {
     return (
       <div className="min-vh-100 bg-light d-flex align-items-center">
         <div className="container">
-          <Login />
+          <Login onLogin={() => setIsLoggedIn(true)} />
           <div className="text-center mt-3">
             <button className="btn btn-link" onClick={() => setIsLoggedIn(true)}>
               Skip Login (Demo)

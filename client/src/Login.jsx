@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -8,6 +8,8 @@ const Login = () => {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
+    // Simple mock login
+    if (onLogin) onLogin();
   };
 
   return (
